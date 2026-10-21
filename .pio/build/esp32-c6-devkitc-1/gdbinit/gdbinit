@@ -1,0 +1,2 @@
+source /Users/alexm/Documents/PlatformIO/Projects/reciept-printer/.pio/build/esp32-c6-devkitc-1/gdbinit/symbols
+source /Users/alexm/Documents/PlatformIO/Projects/reciept-printer/.pio/build/esp32-c6-devkitc-1/gdbinit/connect
