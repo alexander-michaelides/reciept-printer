@@ -3,12 +3,8 @@
 #include <WebServer.h>
 
 #include "wifi_handler.h"
-#include "HardwareSerial.h"
-#include "WiFiType.h"
-#include "esp32-hal.h"
-#include "esp_wifi_types_generic.h"
-#include "http_parser.h"
 #include "secrets.h"
+#include "printer.h"
 
 WebServer server(80);
 
@@ -28,6 +24,8 @@ void initNetwork() {
     Serial.println(WiFi.localIP());
 
     server.on("/", HTTP_GET, []() {
+            Serial.println("GET / received!");
+
         server.send(200, "text/html", R"rawliteral(
             <!DOCTYPE html>
             <html>
@@ -55,7 +53,17 @@ void initNetwork() {
         }
 
         String text = server.arg("text");
-        Serial.printf("Printing \"%s\"", text.c_str());
+        if (text.length() == 0) {
+            server.send(400, "text/plain", "Missing text");
+            return;
+        }
+        Serial.printf("Printing \"%s\"\n", text.c_str());
+
+        align(Alignment::Left);
+        writeText(text);
+        newLine();
+        feedLines(5);
+        cut();
 
         server.send(200, "text/plain", "Received: " + text);
     });
