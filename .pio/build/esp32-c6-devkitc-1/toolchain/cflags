@@ -1,2 +1,0 @@
--march=rv32imac_zicsr_zifencei_zaamo_zalrsc
-"-specs=/Users/alexm/Documents/PlatformIO/Projects/reciept-printer/.pio/build/esp32-c6-devkitc-1/specs/picolibc.specs"
